@@ -1,6 +1,10 @@
-from typing import List, Optional, TypeVar, Type
+from fastapi import HTTPException
+from typing import Optional, TypeVar, Type
 from sqlalchemy import Column, Integer
 from sqlalchemy.orm import Session
+
+
+LIMIT_MAX = 100
 
 
 class AssociativeModel:
@@ -21,8 +25,9 @@ class Model:
     def _get_generic_query(cls, session: Session, filters: dict = None):
         query = session.query(cls)
         if filters:
-            for attr, value in iter(filters.items()):
-                query = query.filter(getattr(cls, attr) == value)
+            for attr, value in iter(filters.__dict__.items()):
+                if value is not None:
+                    query = query.filter(getattr(cls, attr) == value)
         return query
 
     @classmethod
@@ -34,6 +39,11 @@ class Model:
     def fetch_all(
         cls, session: Session, offset: int = 0, limit: int = 100, filters=None
     ):
+        if limit > LIMIT_MAX:
+            raise HTTPException(
+                status_code=422,
+                detail="You cannot request more than {LIMIT_MAX} items.",
+            )
         query = cls._get_generic_query(session, filters)
         return query.offset(offset).limit(limit).all()
 

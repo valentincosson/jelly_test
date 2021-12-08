@@ -1,31 +1,23 @@
-from typing import List
+from typing import List, Optional
 from pydantic import BaseModel
 
 from ..models.character import GenderEnum, SpeciesEnum, StatusEnum
 
 
-class Character(BaseModel):
-    id: int
-    name: str
-    status: StatusEnum
-    species: SpeciesEnum
-    type: str
-    gender: GenderEnum
+class BaseCharacter(BaseModel):
+    name: Optional[str]
+    status: Optional[StatusEnum]
+    species: Optional[SpeciesEnum]
+    type: Optional[str]
+    gender: Optional[GenderEnum]
 
     class Config:
         orm_mode = True
 
 
-class CharacterFull(BaseModel):
-    from .episode import Episode
+class ParamsCharacter(BaseCharacter):
+    pass
 
+
+class Character(BaseCharacter):
     id: int
-    name: str
-    status: StatusEnum
-    species: SpeciesEnum
-    type: str
-    gender: GenderEnum
-    episodes: List[Episode]
-
-    class Config:
-        orm_mode = True

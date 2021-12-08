@@ -8,7 +8,7 @@ class CommentBase(BaseModel):
     episode_id: Optional[int]
     character_id: Optional[int]
 
-    text: str
+    text: Optional[str]
 
 
 class CommentUpdate(BaseModel):
@@ -16,6 +16,10 @@ class CommentUpdate(BaseModel):
 
 
 class CommentCreate(CommentBase):
+    pass
+
+
+class ParamsComment(CommentBase):
     pass
 
 

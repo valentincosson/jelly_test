@@ -2,11 +2,9 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm.session import Session
 
-from jellysmack_test.schemas.comment import CommentUpdate
-
 from ..db import get_session
 from ..models.comment import CommentModel
-from ..schemas import Comment, CommentCreate
+from ..schemas import Comment, CommentCreate, CommentUpdate, ParamsComment
 
 router = APIRouter(
     dependencies=[Depends(get_session)],
@@ -14,8 +12,13 @@ router = APIRouter(
 
 
 @router.get("/", response_model=List[Comment])
-def read_comments(db: Session = Depends(get_session)):
-    return CommentModel.fetch_all(db)
+def read_comments(
+    filters: ParamsComment = Depends(),
+    offset: int = 0,
+    limit: int = 100,
+    db: Session = Depends(get_session),
+):
+    return CommentModel.fetch_all(db, offset, limit, filters)
 
 
 @router.get("/{item_id}", response_model=Comment)

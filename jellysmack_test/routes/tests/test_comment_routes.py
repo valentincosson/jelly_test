@@ -92,3 +92,43 @@ class TestCommentRouter(BaseApiTestCase):
         resp = self.client.delete(f"/comment/12")
 
         self.assertEqual(resp.status_code, 404)
+
+    def test_pagination_comments(self):
+        count = 0
+        while count < 10:
+            CommentFactory()
+            count += 1
+
+        resp = self.client.get("/comment/?offset=0&limit=5")
+        first_page_comments = resp.json()
+        first_page_ids = [obj["id"] for obj in first_page_comments]
+
+        resp = self.client.get("/comment/?offset=5&limit=5")
+        scnd_page_comments = resp.json()
+        scnd_page_ids = [obj["id"] for obj in scnd_page_comments]
+
+        self.assertEqual(len(first_page_comments), 5)
+        self.assertEqual(len(scnd_page_comments), 5)
+        self.assertNotEqual(first_page_ids, scnd_page_ids)
+
+    def test_filters_comments(self):
+        count = 0
+        while count < 2:
+            CommentFactory(episode_id=1, text="comment1")
+            count += 1
+
+        count = 0
+        while count < 2:
+            CommentFactory(episode_id=2, text="comment2")
+            count += 1
+
+        count = 0
+        while count < 2:
+            CommentFactory(episode_id=3, text="comment3")
+            count += 1
+
+        resp = self.client.get("/comment/?episode_id=3&text=comment3")
+        characters = resp.json()
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(len(characters), 2)
