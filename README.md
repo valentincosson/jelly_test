@@ -42,6 +42,53 @@ If you run the server locally with the CLI Command* you can access the auto-docu
 
 *`pipenv run python -m jellysmack_test run`
 
+### Routes
+
+You can use filters on each fields (*except id and create/update dates*) on List Characters and List Comments.
+Pagination is also available on this same routes with `offset` and `limit` filters.
+
+#### Character
+
+[GET]
+`/character/`
+*List Characters*
+
+[GET]
+`/character/{item_id}`
+*Read Character*
+
+#### Episode
+
+[GET]
+`/episode/`
+*List Episodes*
+
+[GET]
+`/episode/{item_id}`
+*Read Episode**
+
+#### Comment
+
+[GET]
+`/comment/`
+*List Comments*
+
+[POST]
+`/comment/`
+*Create Comment*
+
+[GET]
+`/comment/{item_id}`
+*Read Comment*
+
+[DELETE]
+`/comment/{item_id}*`
+*Delete Comment
+
+[PATCH]
+`/comment/{item_id}`
+*Update Comment*
+
 ## Notes
 
 The test contains the 3 mandatory parts. I only knew FastApi ans SQLAlchemy by name, so it took me a little while to find my bearings and get familiar with them. I think it took me about 5-6 hours without considering the discovery of FastApi and SQLAlchemy.
