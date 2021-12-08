@@ -14,3 +14,4 @@ class EpisodeModel(Base, Model):
     season = Column(Integer)
 
     characters = relationship("CharacterEpisodesModel", back_populates="episode")
+    comments = relationship("CommentModel", back_populates="episode")

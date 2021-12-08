@@ -1,14 +1,14 @@
 from jellysmack_test.conftest import BaseApiTestCase
 
 from jellysmack_test.models.tests.factories import (
-    EpisodeModelFactory,
+    EpisodeFactory,
 )
 
 
 class TestEpisodeRouter(BaseApiTestCase):
     def test_fetch_all_episodes(self):
-        episode1 = EpisodeModelFactory()
-        episode2 = EpisodeModelFactory()
+        episode1 = EpisodeFactory()
+        episode2 = EpisodeFactory()
 
         resp = self.client.get("/episode/")
         episodes = resp.json()
@@ -19,8 +19,8 @@ class TestEpisodeRouter(BaseApiTestCase):
         self.assertEqual(episodes[1]["id"], episode2.id)
 
     def test_fetch_episode_by_id(self):
-        episode1 = EpisodeModelFactory.create()
-        _ = EpisodeModelFactory.create()
+        episode1 = EpisodeFactory.create()
+        _ = EpisodeFactory.create()
 
         resp = self.client.get("/episode/")
         episodes = resp.json()

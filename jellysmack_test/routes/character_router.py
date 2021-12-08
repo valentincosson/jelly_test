@@ -3,7 +3,6 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm.session import Session
 
 from ..db import get_session
-
 from ..models.character import CharacterModel
 from ..schemas import Character
 

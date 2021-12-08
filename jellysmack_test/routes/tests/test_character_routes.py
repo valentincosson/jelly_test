@@ -1,14 +1,14 @@
 from jellysmack_test.conftest import BaseApiTestCase
 
 from jellysmack_test.models.tests.factories import (
-    CharacterModelFactory,
+    CharacterFactory,
 )
 
 
 class TestCharacterRouter(BaseApiTestCase):
     def test_fetch_all_characters(self):
-        character1 = CharacterModelFactory()
-        character2 = CharacterModelFactory()
+        character1 = CharacterFactory()
+        character2 = CharacterFactory()
 
         resp = self.client.get("/character/")
         characters = resp.json()
@@ -19,8 +19,8 @@ class TestCharacterRouter(BaseApiTestCase):
         self.assertEqual(characters[1]["id"], character2.id)
 
     def test_fetch_character_by_id(self):
-        character1 = CharacterModelFactory.create()
-        _ = CharacterModelFactory.create()
+        character1 = CharacterFactory.create()
+        _ = CharacterFactory.create()
 
         resp = self.client.get("/character/")
         characters = resp.json()

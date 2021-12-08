@@ -70,3 +70,4 @@ class CharacterModel(Base, Model):
     gender = Column(Enum(GenderEnum))
 
     episodes = relationship("CharacterEpisodesModel", back_populates="character")
+    comments = relationship("CommentModel", back_populates="character")

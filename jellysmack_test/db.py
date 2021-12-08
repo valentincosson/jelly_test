@@ -10,7 +10,9 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 def create_db_and_tables(engine):
-    import jellysmack_test.models
+    from .models.character import CharacterModel, CharacterEpisodesModel
+    from .models.episode import EpisodeModel
+    from .models.comment import CommentModel
 
     Base.metadata.create_all(bind=engine)
 

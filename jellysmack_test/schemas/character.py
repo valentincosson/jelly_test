@@ -5,8 +5,6 @@ from ..models.character import GenderEnum, SpeciesEnum, StatusEnum
 
 
 class Character(BaseModel):
-    """This is the Character exposed by API"""
-
     id: int
     name: str
     status: StatusEnum

@@ -5,8 +5,6 @@ from pydantic import BaseModel
 
 
 class Episode(BaseModel):
-    """This is the Episode exposed by API"""
-
     id: int
     name: str
     air_date: date
