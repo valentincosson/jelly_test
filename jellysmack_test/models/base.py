@@ -38,7 +38,7 @@ class Model:
         return query.offset(offset).limit(limit).all()
 
     @classmethod
-    def delete(cls, session: Session, obj_id: int, offset: int = 0, limit: int = 100):
+    def delete(cls, session: Session, obj_id: int):
         query = cls._get_generic_query(session)
         return query.filter(cls.id == obj_id).delete()
 
