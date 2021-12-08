@@ -38,7 +38,6 @@ class BaseTestCase(unittest.TestCase):
 
     def tearDown(self):
         """Executed after each test"""
-
         # Delete changes to the database
         for table in reversed(Base.metadata.sorted_tables):
             # print(f"Clear table {table}")
