@@ -26,7 +26,8 @@ def pytest_sessionfinish(session, exitstatus):
     """
     import os
 
-    os.remove("test.db")
+    if os.path.isfile("test.db"):
+        os.remove("test.db")
 
 
 class BaseTestCase(unittest.TestCase):
